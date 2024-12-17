@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class Line  {
+class Line implements Comparable<Line> {
     private final int x1, y1, x2, y2;
 
     // Constructor to initialize line endpoints
@@ -23,6 +23,12 @@ class Line  {
         if (obj == null || getClass() != obj.getClass()) return false;
         Line other = (Line) obj;
         return Double.compare(this.calculateLength(), other.calculateLength()) == 0;
+    }
+
+    // UC-3: Method to compare two lines (greater, equal, or less)
+    @Override
+    public int compareTo(Line other) {
+        return Double.compare(this.calculateLength(), other.calculateLength());
     }
 }
 public class LineComparisonProblem {
@@ -53,11 +59,21 @@ public class LineComparisonProblem {
         Line line2 = new Line(x3, y3, x4, y4);
         System.out.printf("Length of Line 2: %.2f%n", line2.calculateLength());
 
-        // Check equality and display a more descriptive message
         if (line1.equals(line2)) {
             System.out.println("Line 1 and Line 2 are Equal");
         } else {
             System.out.println("Line 1 and Line 2 are Not Equal");
+        }
+
+        // UC-3: Compare two lines
+        int comparisonResult = line1.compareTo(line2);
+
+        if (comparisonResult == 0) {
+            System.out.println("Line 1 is equal to Line 3.");
+        } else if (comparisonResult > 0) {
+            System.out.println("Line 1 is greater than Line 3.");
+        } else {
+            System.out.println("Line 1 is less than Line 3.");
         }
     }
 }
