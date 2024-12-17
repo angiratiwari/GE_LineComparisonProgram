@@ -15,6 +15,15 @@ class Line  {
     public double calculateLength() {
         return Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
     }
+
+    // UC-2: Method to compare lengths of two lines for equality
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Line other = (Line) obj;
+        return Double.compare(this.calculateLength(), other.calculateLength()) == 0;
+    }
 }
 public class LineComparisonProblem {
     public static void main(String[] args) {
@@ -23,7 +32,7 @@ public class LineComparisonProblem {
         Scanner scanner = new Scanner(System.in);
 
         // Input for the first line
-        System.out.println("Enter coordinates of Line 1 (x1 y1 x2 y2): ");
+        System.out.println("Enter coordinates of Line 1 (x1, y1, x2, y2): ");
         int x1 = scanner.nextInt();
         int y1 = scanner.nextInt();
         int x2 = scanner.nextInt();
@@ -32,8 +41,25 @@ public class LineComparisonProblem {
         // UC-1: Calculate the length of a line
         Line line1 = new Line(x1, y1, x2, y2);
         System.out.printf("Length of Line 1: %.2f%n", line1.calculateLength());
-    }
 
+        // Input for the second line
+        System.out.println("Enter coordinates of Line 2 (x3, y3, x4, y4): ");
+        int x3 = scanner.nextInt();
+        int y3 = scanner.nextInt();
+        int x4 = scanner.nextInt();
+        int y4 = scanner.nextInt();
+
+        // UC-2: Compare the lengths of Line 1 and Line 2
+        Line line2 = new Line(x3, y3, x4, y4);
+        System.out.printf("Length of Line 2: %.2f%n", line2.calculateLength());
+
+        // Check equality and display a more descriptive message
+        if (line1.equals(line2)) {
+            System.out.println("Line 1 and Line 2 are Equal");
+        } else {
+            System.out.println("Line 1 and Line 2 are Not Equal");
+        }
+    }
 }
 
 
